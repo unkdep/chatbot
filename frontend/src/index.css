@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================== */
+/* BASE */
+/* ===================== */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===================== */
+/* AURORA — CINZA (LIGHT) / PRETO (DARK) */
+/* ===================== */
+@layer utilities {
+  .aurora {
+    position: relative;
+    overflow: hidden;
+
+    /* LIGHT */
+    background:
+      radial-gradient(circle at 50% 45%, rgba(245,245,245,0.95), transparent 55%),
+      radial-gradient(circle at 15% 20%, rgba(210,210,210,0.9), transparent 60%),
+      radial-gradient(circle at 85% 25%, rgba(190,190,190,0.9), transparent 60%),
+      radial-gradient(circle at 25% 85%, rgba(175,175,175,0.9), transparent 65%),
+      radial-gradient(circle at 75% 85%, rgba(160,160,160,0.85), transparent 65%),
+      linear-gradient(
+        180deg,
+        #ededed 0%,
+        #d6d6d6 45%,
+        #c2c2c2 100%
+      );
+
+    background-size: 260% 260%;
+    animation: aurora-soft 36s ease-in-out infinite;
+  }
+
+  .aurora::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+    filter: blur(140px);
+    animation: mist-float 30s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ===================== */
+  /* DARK MODE */
+  /* ===================== */
+  .dark .aurora {
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,0.22), transparent 55%),
+      radial-gradient(circle at 15% 25%, rgba(170,170,170,0.45), transparent 60%),
+      radial-gradient(circle at 85% 30%, rgba(140,140,140,0.4), transparent 60%),
+      radial-gradient(circle at 25% 85%, rgba(60,60,60,0.95), transparent 65%),
+      radial-gradient(circle at 75% 85%, rgba(25,25,25,1), transparent 70%),
+      linear-gradient(
+        180deg,
+        #2a2a2a 0%,
+        #161616 45%,
+        #0b0b0b 100%
+      );
+
+    background-size: 260% 260%;
+    animation: aurora-soft 36s ease-in-out infinite;
+  }
+
+  .dark .aurora::before {
+    background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+  }
+
+  /* ===================== */
+  /* ANIMATIONS */
+  /* ===================== */
+  @keyframes aurora-soft {
+    0% { background-position: 45% 0%; }
+    50% { background-position: 55% 100%; }
+    100% { background-position: 45% 0%; }
+  }
+
+  @keyframes mist-float {
+    0% { transform: translateY(-6%); }
+    50% { transform: translateY(6%); }
+    100% { transform: translateY(-6%); }
+  }
+}
+
+/* ===================== */
+/* GLASS COMPONENTS */
+/* ===================== */
+@layer components {
+  .input-glass {
+    @apply w-full rounded-xl px-4 py-3
+    bg-white/75 dark:bg-black/60
+    backdrop-blur-md
+    text-black dark:text-white
+    placeholder:text-black/40 dark:placeholder:text-white/70
+    border border-gray-300 dark:border-white/50
+    focus:outline-none focus:ring-2
+    focus:ring-black/20 dark:focus:ring-white/50
+    transition;
+  }
+
+  .btn-primary {
+    @apply w-full rounded-xl py-3
+    bg-black text-white
+    dark:bg-white dark:text-black
+    font-medium
+    hover:scale-[1.04]
+    transition shadow-xl;
+  }
+
+  /* GARANTE TEXTO LEGÍVEL NO DARK */
+  .dark p,
+  .dark span,
+  .dark label,
+  .dark h1,
+  .dark h2,
+  .dark h3 {
+    @apply text-white;
+  }
+}
+
+@keyframes wave1 {
+  0%{ transform: scale(.9) rotate(0deg); }
+  50%{ transform: scale(1.1) rotate(180deg); }
+  100%{ transform: scale(.9) rotate(360deg); }
+}
+
+@keyframes wave2 {
+  0%{ transform: scale(.8); }
+  50%{ transform: scale(1); }
+  100%{ transform: scale(.8); }
+}
+
+@keyframes wave3 {
+  0%{ transform: scale(.7); }
+  50%{ transform: scale(.95); }
+  100%{ transform: scale(.7); }
+}
+
+.animate-wave1 { animation: wave1 10s linear infinite; }
+.animate-wave2 { animation: wave2 6s ease-in-out infinite; }
+.animate-wave3 { animation: wave3 4s ease-in-out infinite; }
+
+
+/* ===================== */
+/* DASHBOARD — VERDE‑AZUL (ADD-ON) */
+/* ===================== */
+:root {
+  --dash-accent: 20 184 166;   /* teal-400 (verde‑azulado premium) */
+  --dash-accent2: 13 148 136;  /* teal-500 */
+}
+
+/* Card base (clean + moderno) */
+@layer components {
+  .dash-card {
+    @apply rounded-[2rem] backdrop-blur-xl border shadow-2xl transition;
+    @apply bg-white/70 border-black/10 text-black;
+    @apply dark:bg-black/45 dark:border-white/20 dark:text-white;
+  }
+
+  /* Variações para não ficar tudo igual */
+  .dash-card-soft {
+    @apply bg-white/55 dark:bg-zinc-950/55;
+  }
+
+  .dash-card-dark {
+    @apply bg-zinc-900/80 text-white border-white/15;
+    @apply dark:bg-black/55 dark:border-white/20;
+  }
+
+  /* ✅ HERO VERDE‑AZUL (card Painel do Chatbot) */
+  .dash-card-blue {
+    background:
+      radial-gradient(1100px 520px at 18% 18%, rgba(var(--dash-accent), .55), transparent 55%),
+      radial-gradient(1000px 480px at 82% 12%, rgba(var(--dash-accent2), .42), transparent 58%),
+      radial-gradient(900px 520px at 50% 110%, rgba(134,239,236,.55), transparent 62%),
+      linear-gradient(135deg,
+        rgba(153,246,228,.92) 0%,
+        rgba(54,212,176,.78) 34%,
+        rgba(20,204,184,.52) 70%,
+        rgba(235,248,245,.85) 100%
+      );
+
+    border: 1px solid rgba(4,120,118, .18);
+    border-radius: 2rem;
+
+    box-shadow:
+      0 22px 80px rgba(4,120,118, .16),
+      0 18px 60px rgba(0,0,0,.08);
+
+    backdrop-filter: blur(18px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* textura sutil (premium) */
+  .dash-card-blue::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.12;
+    background:
+      radial-gradient(900px 220px at 18% 20%, rgba(255,255,255,.55), transparent 60%),
+      radial-gradient(900px 260px at 78% 18%, rgba(255,255,255,.40), transparent 62%),
+      linear-gradient(180deg, rgba(255,255,255,.12), transparent 35%);
+    mix-blend-mode: overlay;
+  }
+
+  .dark .dash-card-blue {
+    background:
+      radial-gradient(1100px 520px at 18% 18%, rgba(var(--dash-accent), .34), transparent 58%),
+      radial-gradient(1000px 520px at 82% 12%, rgba(var(--dash-accent2), .28), transparent 60%),
+      radial-gradient(900px 520px at 50% 110%, rgba(20,184,166,.18), transparent 62%),
+      linear-gradient(135deg,
+        rgba(3,36,34,.72) 0%,
+        rgba(3,36,34,.58) 42%,
+        rgba(0,0,0,.55) 100%
+      );
+
+    border: 1px solid rgba(20,184,166, .22);
+    box-shadow:
+      0 30px 120px rgba(0,0,0,.68),
+      0 18px 80px rgba(4,120,118, .18);
+  }
+
+  /* Hover premium */
+  .dash-hover {
+    transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, filter .28s ease;
+  }
+
+  .dash-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 26px 90px rgba(0,0,0,.14);
+    border-color: rgba(var(--dash-accent2), .28);
+    filter: saturate(1.03);
+  }
+
+  .dark .dash-hover:hover {
+    box-shadow: 0 30px 120px rgba(0,0,0,.72);
+    border-color: rgba(var(--dash-accent), .30);
+  }
+
+  /* Ícone com halo azul (sem exagero) */
+  .dash-icon {
+    @apply rounded-2xl p-3 border;
+    @apply bg-white/65 border-black/10;
+    @apply dark:bg-black/35 dark:border-white/20;
+    box-shadow: 0 0 0 6px rgba(var(--dash-accent), .08);
+  }
+
+  .dark .dash-icon {
+    box-shadow: 0 0 0 6px rgba(var(--dash-accent), .12);
+  }
+
+  /* Botão azul minimalista */
+  .dash-btn {
+    @apply inline-flex items-center gap-2 text-sm rounded-2xl px-4 py-2 border backdrop-blur-xl;
+    @apply transition;
+    border-color: rgba(var(--dash-accent2), .22);
+    background: linear-gradient(180deg, rgba(var(--dash-accent2), .18), rgba(var(--dash-accent), .10));
+  }
+
+  .dash-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 55px rgba(var(--dash-accent2), .14);
+  }
+
+  .dark .dash-btn {
+    border-color: rgba(var(--dash-accent), .26);
+    background: linear-gradient(180deg, rgba(var(--dash-accent2), .22), rgba(var(--dash-accent), .12));
+  }
+}

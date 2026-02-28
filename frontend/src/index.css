@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================================== */
+/* 🎯 THEME TOKENS — CINZA AZULADO MODERNO (clean) */
+/* ===================================================== */
+:root {
+  color-scheme: light;
+
+  --bg-base: 248 250 253;
+
+  --bg-surface-1: 255 255 255;
+  --bg-surface-2: 250 251 253;
+  --bg-surface-3: 244 246 250;
+
+  --bg-chrome-1: 235 237 241;
+  --bg-chrome-2: 229 232 237;
+
+  --border: 15 23 42 / 0.10;
+  --border-strong: 15 23 42 / 0.14;
+
+  --text-1: 15 23 42;
+  --text-2: 71 85 105;
+  --text-3: 148 163 184;
+
+  --accent: 59 130 246;
+  --focus: 59 130 246;
+
+  --glass-bg: 255 255 255 / 0.62;
+  --glass-border: 15 23 42 / 0.12;
+  --glass-blur: 14px;
+
+  --dash-accent: 59 130 246;
+  --grid: 15 23 42 / 0.05;
+}
+
+/* ===================================================== */
+/* 🌙 DARK MODE */
+/* ===================================================== */
+.dark {
+  color-scheme: dark;
+
+  --bg-base: 30 34 40;
+
+  --bg-surface-1: 39 45 54;
+  --bg-surface-2: 44 50 60;
+  --bg-surface-3: 52 60 72;
+
+  --bg-chrome-1: 26 30 36;
+  --bg-chrome-2: 22 26 31;
+
+  --border: 226 232 240 / 0.12;
+  --border-strong: 226 232 240 / 0.16;
+
+  --text-1: 226 232 240;
+  --text-2: 180 190 205;
+  --text-3: 120 130 145;
+
+  --accent: 96 165 250;
+  --focus: 96 165 250;
+
+  --glass-bg: 255 255 255 / 0.06;
+  --glass-border: 226 232 240 / 0.14;
+  --glass-blur: 16px;
+
+  --dash-accent: 96 165 250;
+  --grid: 226 232 240 / 0.05;
+}
+
+/* ===================================================== */
+/* BASE — SEM padding/margin/max-width no #root          */
+/* ===================================================== */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system;
+  color: rgb(var(--text-1));
+  background-color: rgb(var(--bg-base));
+}
+
+/* ===================================================== */
+/* FUNDO GLOBAL REUTILIZÁVEL */
+/* ===================================================== */
+@layer utilities {
+  .app-bg {
+    background-color: rgb(var(--bg-base));
+    background-image:
+      radial-gradient(900px 500px at 20% 10%, rgb(var(--accent) / 0.04), transparent 60%),
+      linear-gradient(to right, rgb(var(--grid)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid)) 1px, transparent 1px);
+    background-size:
+      auto,
+      64px 64px,
+      64px 64px;
+    background-attachment: fixed;
+  }
+
+  html.dark .app-bg {
+    background-color: rgb(var(--bg-base));
+    background-image:
+      radial-gradient(900px 500px at 20% 10%, rgb(var(--accent) / 0.07), transparent 65%),
+      linear-gradient(to right, rgb(var(--grid)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--grid)) 1px, transparent 1px);
+    background-size:
+      auto,
+      72px 72px,
+      72px 72px;
+    background-attachment: fixed;
+  }
+}
+
+/* ===================================================== */
+/* FUNDO GLOBAL aplicado no body */
+/* ===================================================== */
+html:not(.dark) body {
+  background-image:
+    radial-gradient(900px 500px at 20% 10%, rgb(var(--accent) / 0.04), transparent 60%),
+    linear-gradient(to right, rgb(var(--grid)) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--grid)) 1px, transparent 1px);
+  background-size:
+    auto,
+    64px 64px,
+    64px 64px;
+  background-attachment: fixed;
+}
+
+html.dark body {
+  background-image:
+    radial-gradient(900px 500px at 20% 10%, rgb(var(--accent) / 0.07), transparent 65%),
+    linear-gradient(to right, rgb(var(--grid)) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--grid)) 1px, transparent 1px);
+  background-size:
+    auto,
+    72px 72px,
+    72px 72px;
+  background-attachment: fixed;
+}
+
+/* ===================================================== */
+/* SURFACES */
+/* ===================================================== */
+@layer components {
+  .surface-1 {
+    background: rgb(var(--bg-surface-1));
+    border: 1px solid rgb(var(--border));
+  }
+
+  .surface-2 {
+    background: rgb(var(--bg-surface-2));
+    border: 1px solid rgb(var(--border));
+  }
+
+  .surface-3 {
+    background: rgb(var(--bg-surface-3));
+    border: 1px solid rgb(var(--border));
+  }
+}
+
+/* ===================================================== */
+/* INPUT GLASS */
+/* ===================================================== */
+@layer components {
+  .input-glass {
+    @apply w-full rounded-xl px-4 py-3 transition;
+    background: rgb(var(--glass-bg));
+    border: 1px solid rgb(var(--glass-border));
+    backdrop-filter: blur(var(--glass-blur));
+    color: rgb(var(--text-1));
+  }
+
+  .input-glass::placeholder {
+    color: rgb(var(--text-3));
+  }
+
+  .input-glass:focus {
+    outline: none;
+    border-color: rgb(var(--focus) / 0.35);
+    box-shadow: 0 0 0 4px rgb(var(--focus) / 0.14);
+  }
+}
+
+/* ===================================================== */
+/* BOTÃO PRIMÁRIO */
+/* ===================================================== */
+@layer components {
+  .btn-primary {
+    @apply rounded-xl py-3 font-medium transition;
+    background: rgb(var(--accent) / 0.15);
+    border: 1px solid rgb(var(--accent) / 0.28);
+    color: rgb(var(--text-1));
+  }
+
+  .btn-primary:hover {
+    background: rgb(var(--accent) / 0.22);
+    transform: translateY(-1px);
+  }
+}
+
+/* ===================================================== */
+/* DASHBOARD */
+/* ===================================================== */
+@layer components {
+  .dash-card {
+    @apply rounded-[2rem] backdrop-blur-xl transition;
+    background: rgb(var(--bg-surface-2) / 0.78);
+    border: 1px solid rgb(var(--border-strong));
+    color: rgb(var(--text-1));
+    box-shadow: 0 14px 44px rgb(0 0 0 / 0.10);
+  }
+
+  html.dark .dash-card {
+    box-shadow: 0 22px 80px rgb(0 0 0 / 0.55);
+  }
+
+  .dash-card-soft {
+    background: rgb(var(--bg-surface-2) / 0.66);
+    border: 1px solid rgb(var(--border));
+  }
+
+  .dash-card-dark {
+    background: rgb(var(--bg-surface-1) / 0.82);
+    border: 1px solid rgb(var(--border-strong));
+  }
+
+  .dash-card-blue {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--dash-accent) / 0.18),
+      rgb(var(--dash-accent) / 0.10)
+    );
+    border: 1px solid rgb(var(--dash-accent) / 0.26);
+    border-radius: 2rem;
+    box-shadow:
+      0 20px 60px rgb(var(--dash-accent) / 0.10),
+      0 14px 44px rgb(0 0 0 / 0.08);
+    backdrop-filter: blur(18px);
+  }
+
+  .dash-hover {
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .dash-hover:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--dash-accent) / 0.22);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 0.12);
+  }
+
+  html.dark .dash-hover:hover {
+    box-shadow: 0 26px 90px rgb(0 0 0 / 0.62);
+  }
+
+  .dash-icon {
+    @apply rounded-2xl p-3 border;
+    background: rgb(var(--bg-surface-2));
+    border-color: rgb(var(--border-strong));
+    box-shadow: 0 0 0 6px rgb(var(--dash-accent) / 0.08);
+  }
+
+  .dash-btn {
+    @apply inline-flex items-center gap-2 text-sm rounded-2xl px-4 py-2 border transition;
+    border-color: rgb(var(--dash-accent) / 0.22);
+    background: rgb(var(--dash-accent) / 0.12);
+    color: rgb(var(--text-1));
+  }
+
+  .dash-btn:hover {
+    background: rgb(var(--dash-accent) / 0.18);
+  }
+}
